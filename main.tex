@@ -1,0 +1,63 @@
+%Porting Viterbi Powerpoint template to beamer template
+%author: sraok
+%email: kuppanna@usc.edu
+%Preamble
+\documentclass{beamer}
+
+\usepackage{default}
+\usetheme{default}
+\usecolortheme{dove}
+
+%Defining viterbi template colors
+\definecolor{viterbiyellow}{HTML}{E9A000}
+\definecolor{viterbired}{HTML}{990000}
+
+%Redefine more fields as required
+\newcommand{\viterbititle}[1]{\title{\textcolor{viterbiyellow}{#1}}}
+\newcommand{\viterbiauthor}[1]{\author{\textcolor{viterbiyellow}{#1}}}
+\newcommand{\viterbidate}[1]{\date{\textcolor{viterbiyellow}{#1}}}
+
+%Change this environment to include any additional formatting required
+\newenvironment{viterbiframe}[1]{
+\begin{frame}{\textcolor{viterbired}{#1}}
+}
+{\end{frame}}
+
+%To show the outline slide before each section
+\AtBeginSection[]
+{
+  \begin{viterbiframe}{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{viterbiframe}
+}
+
+
+
+
+
+
+% %end preamble
+%Document Begins here
+\begin{document}
+
+
+
+
+%Title slide
+\input{title.tex}
+
+\setbeamertemplate{background}{\includegraphics[height=\paperheight]{template}}
+%Table of contents
+%Each \section or \subsection command in the document generates a TOC entry
+\begin{viterbiframe}{Outline}
+\tableofcontents
+\end{viterbiframe}
+
+%the document can be split in terms of sections or slides. I would prefer section level as a good tradeoff between number of tex files and complexity of each slide.
+\input{slide1.tex}
+
+\input{slide2.tex}
+
+%\input{slide3.tex}
+
+\end{document}

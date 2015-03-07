@@ -1,0 +1,45 @@
+\frametitle{Communication Optimizationed Code}
+\vskip-0.7cm
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\begin{itemize}
+\item Move "Store output feature maps" outside the for loop corresponding to dimension: $tii$
+\end{itemize}
+\end{column}
+\begin{column}{0.6\textwidth}
+\tiny
+\begin{verbatim}
+
+for(row=0; row < R; row++) {
+  for(col=0; col < C; col++) {
+    for(to=0; to < M; to++) {
+      for(ti=0; ti < N; ti++) {
+      //load weights
+      //load input feature maps
+
+      // on−chip data computation
+      for(trr=row;trr<min(row+Tr,R);trr++){
+        for(tcc=col;tcc<min(col+Tc,C);tcc++){
+          for(too=to;too<min(to+Tm,M);too++){
+#pragma HLS UNROLL
+            for(tii=ti;tii<min(ti+Tn,N);tii++){
+#pragma HLS UNROLL
+              for(i=0;i<K;i++){
+                for(j=0;j<K;j++){
+                  L:outputfm[too][trr][tcc]+=
+                      weights[too][tii][i][j]*
+                      inputfm[tii][S*trr+i][S*tcc+j];
+
+       } } } } } }
+
+
+      }
+      //store output feature maps
+
+} } }
+
+\end{verbatim}
+
+\end{column}
+\end{columns}
+
